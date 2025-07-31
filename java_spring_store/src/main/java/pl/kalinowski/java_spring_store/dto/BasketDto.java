@@ -1,23 +1,46 @@
 package pl.kalinowski.java_spring_store.dto;
+
 import pl.kalinowski.java_spring_store.model.Basket;
+import pl.kalinowski.java_spring_store.model.Item;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class BasketDto {
     long id;
-    String item;
+    List<BasketItemDto> items;
 
-    //	zamiana encji na DTO (np. JSON)
-    public static BasketDto fromEntity(Basket basket) {
-        BasketDto basketDTO = new BasketDto();
-        basketDTO.id = basket.getId();
-        basketDTO.item = basket.getItem();
-        return basketDTO;
+    public List<BasketItemDto> getItems() {
+        return items;
     }
-    // zamiana Dto (np. JSON) na encję
-    public static Basket toEntity(BasketDto basketDTO) {
+
+    public void setItems(List<BasketItemDto> items) {
+        this.items = items;
+    }
+
+    // Zamiana encji na DTO
+    public static BasketDto fromEntity(Basket basket) {
+        BasketDto dto = new BasketDto();
+        dto.setId(basket.getId());
+
+        if (basket.getBasketItems() != null) {
+            dto.setItems(
+                    basket.getBasketItems().stream()
+                            .map(BasketItemDto::fromEntity)
+                            .collect(Collectors.toList())
+            );
+        }
+
+        return dto;
+    }
+
+    // Zamiana DTO na encję
+    public static Basket toEntity(BasketDto dto) {
         Basket basket = new Basket();
-        basket.setId(basketDTO.id);
-        basket.setItem(basketDTO.item);
+        basket.setId(dto.getId());
+        // koszyk bez produktow dodajemy je pzez serwis
         return basket;
     }
 
@@ -29,11 +52,5 @@ public class BasketDto {
         this.id = id;
     }
 
-    public String getItem() {
-        return item;
-    }
 
-    public void setItem(String item) {
-        this.item = item;
-    }
 }

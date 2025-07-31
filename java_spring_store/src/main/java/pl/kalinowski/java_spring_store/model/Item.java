@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 public class Item {
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITEM_ID")
@@ -21,6 +20,17 @@ public class Item {
 
     @Column(name = "ITEM_QUANTITY")
     private Integer quantity;
+
+    @ManyToOne
+    private Basket basket;
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
 
     public Long getId() {
         return id;

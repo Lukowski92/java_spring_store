@@ -20,6 +20,7 @@ public class ItemDto {
 
         return itemDto;
     }
+
     // zamiana Dto (np. JSON) na encję
     public static Item toEntity(ItemDto itemDto) {
         Item item = new Item();

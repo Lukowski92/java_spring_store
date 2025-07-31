@@ -1,11 +1,10 @@
 package pl.kalinowski.java_spring_store.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
+
 
 @Entity
 @Table(name = "basket")
@@ -15,8 +14,16 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "item")
-    private String item;
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BasketItem> basketItems;
+
+    public List<BasketItem> getBasketItems() {
+        return basketItems;
+    }
+
+    public void setBasketItems(List<BasketItem> basketItems) {
+        this.basketItems = basketItems;
+    }
 
     public long getId() {
         return id;
@@ -24,13 +31,5 @@ public class Basket {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
     }
 }
