@@ -17,6 +17,18 @@ public class Basket {
     @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BasketItem> basketItems;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public List<BasketItem> getBasketItems() {
         return basketItems;
     }

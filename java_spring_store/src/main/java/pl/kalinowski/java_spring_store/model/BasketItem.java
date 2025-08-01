@@ -12,9 +12,11 @@ import jakarta.persistence.*;
         private Long id;
 
         @ManyToOne
+        @JoinColumn(name = "basket_id")
         private Basket basket;
 
         @ManyToOne
+        @JoinColumn(name = "item_id")
         private Item item; // istniejący produkt
 
         @Column(nullable = false)

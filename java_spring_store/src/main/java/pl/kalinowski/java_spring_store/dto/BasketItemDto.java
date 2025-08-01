@@ -2,10 +2,12 @@ package pl.kalinowski.java_spring_store.dto;
 
 import pl.kalinowski.java_spring_store.model.BasketItem;
 
+import java.math.BigDecimal;
+
 public class BasketItemDto {
     private Long itemId;
     private String itemName;
-    private Float itemPrice;
+    private BigDecimal itemPrice;
     private Integer quantity;
 
     public Long getItemId() {
@@ -24,11 +26,11 @@ public class BasketItemDto {
         this.itemName = itemName;
     }
 
-    public Float getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Float itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 

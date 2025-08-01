@@ -3,7 +3,6 @@ package pl.kalinowski.java_spring_store.dto;
 import pl.kalinowski.java_spring_store.model.Basket;
 import pl.kalinowski.java_spring_store.model.Item;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

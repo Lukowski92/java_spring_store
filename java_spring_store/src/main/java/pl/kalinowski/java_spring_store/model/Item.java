@@ -2,6 +2,8 @@ package pl.kalinowski.java_spring_store.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "Item")
 public class Item {
@@ -16,12 +18,13 @@ public class Item {
     private String itemName;
 
     @Column(name = "ITEM_PRICE")
-    private Float itemPrice;
+    private BigDecimal itemPrice;
 
     @Column(name = "ITEM_QUANTITY")
     private Integer quantity;
 
     @ManyToOne
+    @JoinColumn(name = "basket_id")
     private Basket basket;
 
     public Basket getBasket() {
@@ -40,11 +43,11 @@ public class Item {
         this.id = id;
     }
 
-    public Float getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Float itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 

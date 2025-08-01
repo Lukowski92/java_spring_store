@@ -1,13 +1,14 @@
 package pl.kalinowski.java_spring_store.dto;
 
-import pl.kalinowski.java_spring_store.model.Basket;
 import pl.kalinowski.java_spring_store.model.Item;
+
+import java.math.BigDecimal;
 
 public class ItemDto {
 
     long id;
     String name;
-    float price;
+    BigDecimal price;
     int quantity;
 
     //	zamiana encji na DTO (np. JSON)
@@ -17,7 +18,6 @@ public class ItemDto {
         itemDto.name = item.getItemName();
         itemDto.price = item.getItemPrice();
         itemDto.quantity = item.getQuantity();
-
         return itemDto;
     }
 
@@ -48,11 +48,11 @@ public class ItemDto {
         this.name = name;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

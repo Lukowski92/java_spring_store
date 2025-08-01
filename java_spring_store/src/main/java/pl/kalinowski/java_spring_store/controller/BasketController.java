@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kalinowski.java_spring_store.dto.BasketDto;
 import pl.kalinowski.java_spring_store.dto.BasketItemDto;
-import pl.kalinowski.java_spring_store.dto.ItemDto;
 import pl.kalinowski.java_spring_store.model.Basket;
 import pl.kalinowski.java_spring_store.service.BasketService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Tag(name="Basket", description = "Basket managment APIs")
@@ -66,6 +66,13 @@ public class BasketController {
 
         BasketDto updatedBasket = basketService.addItemToBasket(id, basketItemDto);
         return ResponseEntity.ok(updatedBasket);
+    }
+
+    @Operation(summary = "Get total value of basket")
+    @GetMapping("/{id}/total")
+    public ResponseEntity<BigDecimal> getBasketPriceById(@PathVariable Long id) {
+        BigDecimal total = basketService.getBasketPriceById(id);
+        return ResponseEntity.ok(total);
     }
 
 
