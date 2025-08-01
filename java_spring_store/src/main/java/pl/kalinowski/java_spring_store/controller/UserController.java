@@ -54,6 +54,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Create basket for user")
+    @PostMapping("/{id}/basket")
+    public ResponseEntity<UserDto> createBasket(@PathVariable Long id) {
+        UserDto userWithBasket = userService.createBasketForUser(id);
+        return ResponseEntity.ok(userWithBasket);
+    }
 
 
 }

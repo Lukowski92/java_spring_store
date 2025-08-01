@@ -3,6 +3,7 @@ package pl.kalinowski.java_spring_store.service;
 import org.springframework.stereotype.Service;
 import pl.kalinowski.java_spring_store.dto.UserDto;
 import pl.kalinowski.java_spring_store.exception.ResourceNotFoundException;
+import pl.kalinowski.java_spring_store.model.Basket;
 import pl.kalinowski.java_spring_store.model.User;
 import pl.kalinowski.java_spring_store.repository.UserRepository;
 
@@ -51,6 +52,23 @@ public class UserService {
         user.setEmail(dto.getEmail());
 
         return userRepository.save(user);
+    }
+
+    public UserDto createBasketForUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        if (user.getBasket() != null) {
+            throw new IllegalStateException("User already has a basket");
+        }
+
+        Basket basket = new Basket();
+        basket.setUser(user);
+        user.setBasket(basket);
+
+        userRepository.save(user);
+
+        return UserDto.fromEntity(user);
     }
 
 }

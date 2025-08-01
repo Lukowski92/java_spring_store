@@ -15,8 +15,8 @@ public class User {
     private String email;
 
 
-    @OneToOne
-    @JoinColumn(name = "basket_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "basket_id",nullable = true)
     private Basket basket;
 
     public Basket getBasket() {

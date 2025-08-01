@@ -10,6 +10,15 @@ public class UserDto {
     private String surname;
     private String email;
     private String login;
+    private BasketDto basket;
+
+    public BasketDto getBasket() {
+        return basket;
+    }
+
+    public void setBasket(BasketDto basket) {
+        this.basket = basket;
+    }
 
     public Long getId() {
         return id;
@@ -58,16 +67,25 @@ public class UserDto {
         userDto.surname = user.getSurname();
         userDto.email = user.getEmail();
         userDto.login = user.getLogin();
+        if (user.getBasket() != null) {
+            userDto.setBasket(BasketDto.fromEntity(user.getBasket()));
+        }
         return userDto;
     }
 
     public static User toEntity(UserDto userDto) {
         User user = new User();
-        user.setId(userDto.id); // dla update
+        user.setId(userDto.id);
         user.setName(userDto.name);
         user.setSurname(userDto.surname);
         user.setEmail(userDto.email);
         user.setLogin(userDto.login);
+
+        if (userDto.basket != null) {
+            user.setBasket(BasketDto.toEntity(userDto.basket));
+        }
+
         return user;
     }
+
 }
