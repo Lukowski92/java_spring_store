@@ -2,10 +2,13 @@ package pl.kalinowski.java_spring_store.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.kalinowski.java_spring_store.dto.BasketDto;
 import pl.kalinowski.java_spring_store.dto.UserDto;
+import pl.kalinowski.java_spring_store.model.Basket;
 import pl.kalinowski.java_spring_store.model.User;
 import pl.kalinowski.java_spring_store.service.UserService;
 import java.util.List;
@@ -34,15 +37,18 @@ public class UserController {
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-    @Operation(summary = "Add user")
+    @Operation(summary = "Add new user")
     @PostMapping("/addUser")
-    public ResponseEntity<User> createUser(@RequestBody UserDto dto) {
-         User createdUser = userService.createUser(dto);
-        return ResponseEntity.status(201).body(createdUser);
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto dto) {
+        User createdUser = userService.createUser(dto);
+        return ResponseEntity.status(201).body(UserDto.fromEntity(createdUser));
     }
+
+
+
     @Operation(summary = "Update an existing user")
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDto user) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody @Valid UserDto user) {
         User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok(updatedUser);
     }

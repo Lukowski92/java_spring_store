@@ -1,15 +1,28 @@
 package pl.kalinowski.java_spring_store.dto;
 
 
+import jakarta.validation.constraints.*;
 import pl.kalinowski.java_spring_store.model.User;
 
 
 public class UserDto {
+
+    @Null(message = "ID must not be provided during creation")
     private Long id;
+
+    @NotBlank(message = "Name must not be empty")
     private String name;
+
+    @Size(min = 2, message = "Surname must have at least 2 characters")
     private String surname;
+
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotEmpty(message = "Email cannot be empty")
     private String email;
+
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Login must contain only letters and numbers")
     private String login;
+
     private BasketDto basket;
 
     public BasketDto getBasket() {

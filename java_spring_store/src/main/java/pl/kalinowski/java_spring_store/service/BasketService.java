@@ -109,8 +109,8 @@ public class BasketService {
                 .map(bi -> bi.getItem().getItemPrice().multiply(BigDecimal.valueOf(bi.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        // Pobierz pierwszą (lub aktywną) promocję z repozytorium
-        Optional<Promotion> promotionOpt = promotionRepository.findFirstByActiveTrue(); // np. ostatnia dodana
+
+        Optional<Promotion> promotionOpt = promotionRepository.findFirstByActiveTrue();
 
         if (promotionOpt.isPresent()) {
             Promotion promotion = promotionOpt.get();

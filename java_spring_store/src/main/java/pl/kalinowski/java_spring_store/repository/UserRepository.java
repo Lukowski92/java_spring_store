@@ -6,4 +6,5 @@ import pl.kalinowski.java_spring_store.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    boolean existsByLogin(String login);
 }

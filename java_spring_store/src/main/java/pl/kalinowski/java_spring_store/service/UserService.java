@@ -38,6 +38,11 @@ public class UserService {
     }
 
     public User createUser(UserDto userDto) {
+
+        if (userRepository.existsByLogin(userDto.getLogin())) {
+            throw new IllegalArgumentException("Login: " + userDto.getLogin() + " is already taken, change login");
+        }
+
         User user = UserDto.toEntity(userDto);
         return userRepository.save(user);
     }

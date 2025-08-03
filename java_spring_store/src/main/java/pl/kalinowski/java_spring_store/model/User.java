@@ -1,18 +1,28 @@
 package pl.kalinowski.java_spring_store.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Null(message = "ID must not be provided during creation")
     private Long id;
 
+    @NotBlank(message = "Name must not be empty")
     private String name;
+
+    @Size(min = 2, message = "Surname must have at least 2 characters")
     private String surname;
-    private String login;
+
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotEmpty(message = "Email cannot be empty")
     private String email;
+
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Login must contain only letters and numbers")
+    private String login;
 
 
     @OneToOne(cascade = CascadeType.ALL)
